@@ -3,9 +3,9 @@
   // This static preview uses browser-local accounts, not server authentication.
   const accounts = [
     {id:'kavi', email:'Kavi@gmail.com', password:'kavi@1234', name:'Kavi'},
-    {id:'mohan', email:'rajm01601@gmail.com', password:'mohan@123', name:'Mohan', photo:'assets/profiles/mohan.jpeg'},
-    {id:'kaviyarasu', email:'kaviyarasud03@gmail.com', password:'kavi@123', name:'Kavi', photo:'assets/profiles/kavi.jpeg'},
-    {id:'ashok', email:'ashokinfo55@gmail.com', password:'ashok@123', name:'Ashok'}
+    {id:'mohan', email:'rajm01601@gmail.com', password:'mohan@123', name:'Mohan', phone:'+91 883 862 8994', photo:'assets/profiles/mohan.jpeg'},
+    {id:'kaviyarasu', email:'kaviyarasud03@gmail.com', password:'kavi@123', name:'Kavi', phone:'+91 90803 52300', photo:'assets/profiles/kavi.jpeg'},
+    {id:'ashok', email:'ashokinfo55@gmail.com', password:'ashok@123', name:'Ashok', phone:'+91 8248020538'}
   ];
   const sessionKey = 'jasfa.candidate';
   const page = document.body.dataset.page;
@@ -26,8 +26,9 @@
   const brand = `<a class="brand" href="index.html" aria-label="Jasfa Institute home"><span class="brand-icon" aria-hidden="true">☼</span><span>JASFA<small>INSTITUTE</small></span></a>`;
   const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const defaultName = account ? account.name : '';
-  let profile = {name:defaultName,phone:'',address:''};
+  let profile = {name:defaultName,phone:account ? account.phone || '' : '',address:''};
   try { const saved = JSON.parse(storage.get(profileKey)); if (saved && typeof saved === 'object') for (const key of Object.keys(profile)) if (typeof saved[key] === 'string') profile[key] = saved[key]; } catch {}
+  if (!profile.phone.trim() && account && account.phone) profile.phone = account.phone;
   let savedPage = Math.min(204, Math.max(1, parseInt(storage.get(readingKey), 10) || 1));
   const name = escapeHTML(profile.name || defaultName);
   const firstName = escapeHTML((profile.name || defaultName).trim().split(/\s+/)[0]);
