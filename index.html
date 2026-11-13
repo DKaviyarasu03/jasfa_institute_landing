@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10291f">
+  <meta name="description" content="Jasfa Institute offers solar energy education, practical renewable energy learning and career-focused training. Discover solar technology and build skills for a cleaner future.">
+  <meta name="keywords" content="Jasfa Institute, solar education, solar energy training, renewable energy, solar PV, solar technology">
+  <meta property="og:title" content="Jasfa Institute | Learn Solar. Shape Tomorrow.">
+  <meta property="og:description" content="Explore solar energy education and practical renewable technology learning with Jasfa Institute.">
+  <meta property="og:type" content="website">
+  <title>Jasfa Institute | Learn Solar. Shape Tomorrow.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --forest:#10291f;--forest-2:#193d2d;--leaf:#8bc66a;--lime:#c7ee9b;
+      --paper:#f7f8f4;--white:#fff;--ink:#17271f;--muted:#69776e;
+      --line:#e5e9e1;--soft:#edf3e9;--gold:#f2c66d;--shadow:0 24px 70px rgba(17,43,29,.11);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:88px}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased}
+    body.locked{overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    button,a{-webkit-tap-highlight-color:transparent}
+    .container{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+    .announcement{background:#0b2118;color:#d9e8dc;text-align:center;padding:9px 16px;font-size:11px;letter-spacing:.04em}
+    .announcement strong{color:var(--lime);font-weight:700}
+    .header{position:sticky;top:0;z-index:30;background:rgba(247,248,244,.91);backdrop-filter:blur(18px);border-bottom:1px solid rgba(16,41,31,.08)}
+    .nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+    .brand{display:flex;align-items:center;gap:11px;min-width:190px}
+    .brand-symbol{width:42px;height:42px;border-radius:14px;background:var(--forest);display:grid;place-items:center;color:var(--lime);font-size:23px;box-shadow:0 7px 18px #10291f22}
+    .brand-name{font:800 18px Manrope,sans-serif;letter-spacing:-.7px;line-height:1.1}
+    .brand-name small{display:block;font:700 9px "DM Sans";letter-spacing:2.6px;color:#738177;margin-top:4px}
+    .nav-links{display:flex;align-items:center;gap:30px}
+    .nav-links a{font-size:12px;font-weight:700;color:#526258;transition:color .2s}
+    .nav-links a:hover{color:#5c963e}
+    .nav-cta{display:flex;align-items:center;gap:9px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid transparent;border-radius:999px;padding:13px 19px;font-size:12px;font-weight:700;cursor:pointer;transition:transform .22s,box-shadow .22s,background .22s}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-dark{background:var(--forest);color:white;box-shadow:0 8px 20px #10291f20}
+    .btn-dark:hover{background:#1d4934;box-shadow:0 12px 25px #10291f2b}
+    .btn-green{background:var(--lime);color:#183322;box-shadow:0 8px 20px #8bc66a30}
+    .btn-green:hover{background:#d4f5ad;box-shadow:0 12px 25px #8bc66a45}
+    .btn-ghost{border-color:#dce4d9;color:var(--forest);background:transparent}
+    .btn-ghost:hover{background:#edf3e9}
+    .menu-btn{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:13px;background:white;color:var(--forest);font-size:20px}
+    /* Hero */
+    .hero{position:relative;overflow:hidden;background:var(--forest);color:white;padding:88px 0 82px;isolation:isolate}
+    .hero:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 82% 35%,#3b7046 0,transparent 34%),radial-gradient(ellipse at 4% 100%,#1c4c34 0,transparent 42%),linear-gradient(115deg,#10291f,#0b2118)}
+    .hero:after{content:"";position:absolute;inset:0;z-index:-1;opacity:.12;background-image:linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(90deg,black,transparent 90%)}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:42px}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--lime);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+    .eyebrow:before{content:"";width:23px;height:1px;background:currentColor}
+    h1,h2,h3{font-family:Manrope,sans-serif}
+    h1{font-size:clamp(48px,5.6vw,72px);line-height:1.06;letter-spacing:-3.6px;margin:22px 0 21px;max-width:650px}
+    h1 span{color:var(--lime)}
+    .hero-copy{font-size:15px;line-height:1.85;color:#c4d4c9;max-width:510px;margin:0}
+    .hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin:30px 0 38px}
+    .hero .btn-ghost{color:white;border-color:#ffffff42}
+    .hero .btn-ghost:hover{background:#ffffff12}
+    .hero-proof{display:flex;align-items:center;gap:24px;color:#bdcfc2;font-size:11px}
+    .proof-item strong{display:block;font:800 19px Manrope;color:white;margin-bottom:3px}
+    .proof-separator{height:34px;width:1px;background:#ffffff35}
+    .hero-art{position:relative;height:465px;display:grid;place-items:center}
+    .sun-halo{position:absolute;width:310px;height:310px;border-radius:50%;background:#b9ed79;filter:blur(75px);opacity:.2;animation:halo 6s ease-in-out infinite}
+    .sun-disc{position:absolute;width:142px;height:142px;top:30px;right:82px;border-radius:50%;background:radial-gradient(circle at 33% 28%,#fff9cf,#f6d879 42%,#d8a94b 80%);box-shadow:0 0 70px #f4d37a66;animation:drift 7s ease-in-out infinite}
+    .solar-platform{position:absolute;left:50%;top:170px;width:390px;height:220px;transform:translateX(-50%) perspective(800px) rotateX(57deg) rotateZ(-23deg);display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);border:5px solid #d6e8c8;background:#174c5a;box-shadow:0 38px 65px #0007;overflow:hidden}
+    .solar-cell{border:1px solid #92c6ca66;background:linear-gradient(135deg,#2a7080,#123d50)}
+    .solar-glint{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#e5ffdd55 48%,transparent 65%);transform:translateX(-100%);animation:glint 6s ease-in-out infinite}
+    .art-orbit{position:absolute;width:440px;height:440px;border:1px solid #d8f5c02b;border-radius:50%;animation:rotate 38s linear infinite}
+    .art-orbit:before,.art-orbit:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 15px var(--lime)}
+    .art-orbit:before{top:55px;left:60px}.art-orbit:after{right:24px;bottom:120px}
+    .art-label{position:absolute;padding:14px 17px;border-radius:15px;border:1px solid #ffffff30;background:#ffffff13;backdrop-filter:blur(16px);box-shadow:0 15px 35px #0002}
+    .art-label strong{display:block;font:800 16px Manrope;color:var(--lime);margin-bottom:4px}
+    .art-label span{font-size:9px;letter-spacing:1px;color:#d2dfd5}
+    .label-left{left:0;top:120px}.label-right{right:-4px;bottom:54px}
+    .art-caption{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#bdd1c2;font-size:10px;letter-spacing:1.5px;text-transform:uppercase}
+    /* Credibility strip */
+    .principles{background:#fff;border-bottom:1px solid var(--line)}
+    .principle-row{display:grid;grid-template-columns:repeat(4,1fr);padding:22px 0;gap:18px}
+    .principle{display:flex;align-items:center;justify-content:center;gap:11px;color:#526359;font-size:11px;font-weight:700}
+    .principle-icon{width:34px;height:34px;display:grid;place-items:center;background:#eff5e9;border-radius:11px;color:#67994c;font-size:17px}
+    /* Sections */
+    section.content-section{padding:98px 0}
+    .section-intro{max-width:650px;margin-bottom:44px}
+    .section-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6c9c50;font-weight:800;margin-bottom:14px}
+    .section-intro h2{font-size:clamp(34px,4.2vw,49px);line-height:1.12;letter-spacing:-2.2px;margin:0 0 15px}
+    .section-intro p{font-size:14px;line-height:1.85;color:var(--muted);margin:0}
+    .about-layout{display:grid;grid-template-columns:.92fr 1.08fr;gap:72px;align-items:center}
+    .about-visual{height:430px;border-radius:28px;position:relative;overflow:hidden;background:linear-gradient(145deg,#e4f1d9,#b9d8a9)}
+    .about-visual:before{content:"";position:absolute;width:330px;height:330px;border:1px solid #477a3e45;border-radius:50%;left:50%;top:48%;transform:translate(-50%,-50%);box-shadow:0 0 0 35px #ffffff20,0 0 0 70px #ffffff15}
+    .about-sun{position:absolute;width:94px;height:94px;border-radius:50%;background:#fff0a9;top:54px;right:62px;box-shadow:0 0 65px #fff4b5}
+    .about-array{position:absolute;width:330px;height:145px;left:50%;top:48%;transform:translate(-50%,-15%) perspective(600px) rotateX(53deg) rotateZ(-12deg);display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);border:7px solid #f5faed;background:#19475a;box-shadow:0 28px 40px #345b3440}
+    .about-array i{border:1px solid #8ab9bb66;background:linear-gradient(135deg,#34758a,#153c50)}
+    .about-caption{position:absolute;bottom:22px;left:22px;padding:15px 18px;background:white;border-radius:14px;box-shadow:0 12px 30px #31582c20;font-size:11px;font-weight:700}
+    .about-caption strong{display:block;color:#5b9142;font:800 20px Manrope;margin-bottom:2px}
+    .about-copy h2{font-size:clamp(34px,4vw,48px);line-height:1.12;letter-spacing:-2px;margin:0 0 18px}
+    .about-copy p{font-size:13px;color:var(--muted);line-height:1.9}
+    .tick-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0 29px}
+    .tick{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700;color:#405447}
+    .tick b{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#e7f3df;color:#64954b;font-size:11px;flex:none}
+    /* Programs */
+    .program-section{background:#eef3e9}
+    .program-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+    .program-card{background:#fff;border:1px solid #e2e9dd;border-radius:20px;padding:25px;min-height:255px;position:relative;transition:transform .25s,box-shadow .25s}
+    .program-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+    .program-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:#edf5e7;color:#548a3d;font-size:22px;margin-bottom:23px}
+    .program-card h3{font-size:18px;letter-spacing:-.6px;margin:0 0 10px}
+    .program-card p{font-size:12px;line-height:1.8;color:var(--muted);margin:0;max-width:300px}
+    .program-foot{position:absolute;left:25px;right:25px;bottom:20px;border-top:1px solid #edf0eb;padding-top:13px;display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:1px;font-weight:800;color:#7a8b7e}
+    .program-foot span:last-child{color:#65964c;font-size:15px}
+    /* Journey */
+    .journey-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .journey-card{padding:23px 20px;border:1px solid var(--line);border-radius:18px;background:#fff;min-height:190px}
+    .journey-number{font:800 11px Manrope;color:#79a85a;letter-spacing:1px;margin-bottom:24px}
+    .journey-card h3{font-size:16px;letter-spacing:-.4px;margin:0 0 9px}
+    .journey-card p{font-size:11px;line-height:1.8;color:var(--muted);margin:0}
+    /* CTA */
+    .contact-wrap{padding:0 0 95px}
+    .contact-panel{border-radius:27px;overflow:hidden;background:linear-gradient(115deg,#10291f,#1e4a31);padding:54px 58px;color:white;display:flex;align-items:center;justify-content:space-between;gap:30px;position:relative}
+    .contact-panel:after{content:"☼";position:absolute;right:24%;top:-95px;font-size:270px;color:#d5f5b10b;pointer-events:none}
+    .contact-text{position:relative;z-index:1}
+    .contact-text .eyebrow{margin-bottom:17px}
+    .contact-text h2{font-size:clamp(30px,4vw,43px);letter-spacing:-1.8px;line-height:1.14;max-width:620px;margin:0}
+    .contact-text p{font-size:12px;color:#c1d2c5;margin:13px 0 0}
+    .contact-panel .btn{position:relative;z-index:1;white-space:nowrap}
+    /* Footer */
+    footer{background:#091c14;color:white;padding:49px 0 22px}
+    .footer-main{display:flex;justify-content:space-between;gap:40px;padding-bottom:35px;border-bottom:1px solid #ffffff1c}
+    .footer-about{max-width:350px}
+    .footer-about p{font-size:11px;line-height:1.9;color:#a5b8aa;margin:17px 0 0}
+    .footer-links{display:flex;gap:70px}
+    .footer-column strong{display:block;font:800 12px Manrope;margin-bottom:16px}
+    .footer-column a{display:block;color:#a5b8aa;font-size:11px;margin:12px 0;transition:color .2s}
+    .footer-column a:hover{color:var(--lime)}
+    .footer-bottom{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;padding-top:19px;color:#81968a;font-size:10px}
+    /* Motion */
+    .reveal{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease}
+    .reveal.in{opacity:1;transform:none}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+    @keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+    @keyframes halo{0%,100%{opacity:.15;transform:scale(.92)}50%{opacity:.27;transform:scale(1.1)}}
+    @keyframes glint{0%,35%{transform:translateX(-110%)}70%,100%{transform:translateX(110%)}}
+    @keyframes rotate{to{transform:rotate(360deg)}}
+    @keyframes fade{from{opacity:0}to{opacity:1}}
+    @keyframes rise{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+    @media(max-width:960px){
+      .nav-links{gap:17px}.hero-grid{gap:10px}.hero-art{transform:scale(.88)}.about-layout{gap:38px}.footer-links{gap:42px}
+    }
+    @media(max-width:740px){
+      .container{width:min(100% - 34px,560px)}
+      .announcement{font-size:9px}
+      .nav{height:69px}.brand{min-width:0}.brand-symbol{width:38px;height:38px}.brand-name{font-size:16px}
+      .menu-btn{display:block}.nav-links{display:none;position:absolute;top:69px;left:17px;right:17px;background:#fff;padding:12px;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);align-items:stretch;gap:0}
+      .nav-links.show{display:flex;flex-direction:column}.nav-links a{padding:13px 10px;border-bottom:1px solid #edf0eb}.nav-links a:last-child{border:0}
+      .nav-cta .btn-ghost{display:none}.nav-cta .btn{padding:11px 13px;font-size:10px}
+      .hero{padding:67px 0 42px}.hero-grid{grid-template-columns:1fr;gap:0}.hero h1{font-size:clamp(43px,11vw,61px);letter-spacing:-2.7px;margin:18px 0}.hero-copy{font-size:13px}.hero-buttons{margin:24px 0 28px}.hero-proof{gap:13px;font-size:9px}.proof-item strong{font-size:16px}.proof-separator{height:28px}
+      .hero-art{height:330px;transform:none;margin-top:5px}.art-orbit{width:310px;height:310px}.sun-disc{width:110px;height:110px;right:48px;top:5px}.solar-platform{width:290px;height:170px;top:120px}.label-left{top:62px;left:0}.label-right{bottom:25px;right:0}.art-label{padding:10px 12px}.art-label strong{font-size:13px}.art-label span{font-size:8px}.art-caption{font-size:8px;bottom:0}
+      .principle-row{grid-template-columns:1fr 1fr;gap:16px;padding:18px 0}.principle{justify-content:flex-start;font-size:10px}
+      section.content-section{padding:72px 0}.section-intro{margin-bottom:30px}.section-intro h2{font-size:36px;letter-spacing:-1.7px}.section-intro p{font-size:12px}
+      .about-layout{grid-template-columns:1fr;gap:30px}.about-visual{height:330px;order:2}.about-copy{order:1}.about-copy h2{font-size:36px}.about-copy p{font-size:12px}.tick-grid{gap:12px}.tick{font-size:10px}
+      .program-grid{grid-template-columns:1fr 1fr;gap:12px}.program-card{padding:19px;min-height:265px}.program-icon{width:42px;height:42px;margin-bottom:18px}.program-card h3{font-size:15px}.program-card p{font-size:11px}.program-foot{left:19px;right:19px;bottom:17px;font-size:8px}
+      .journey-grid{grid-template-columns:1fr 1fr;gap:11px}.journey-card{padding:19px 16px;min-height:175px}.journey-number{margin-bottom:19px}
+      .contact-wrap{padding-bottom:70px}.contact-panel{display:block;padding:34px 25px}.contact-text h2{font-size:34px}.contact-panel .btn{margin-top:24px}
+      .footer-main{display:block}.footer-links{margin-top:30px;gap:55px}.footer-bottom{line-height:1.8}
+    }
+    @media(max-width:390px){
+      .nav-cta .btn{padding:10px 11px}.hero-buttons .btn{width:100%}.hero-proof{gap:9px}.proof-separator{display:none}
+      .program-grid{grid-template-columns:1fr}.program-card{min-height:235px}.tick-grid{grid-template-columns:1fr}.journey-grid{grid-template-columns:1fr}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+      .reveal{opacity:1;transform:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement"><strong>JASFA INSTITUTE</strong> &nbsp;·&nbsp; Learning for a cleaner, brighter tomorrow</div>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Jasfa Institute home">
+        <span class="brand-symbol">☼</span>
+        <span class="brand-name">JASFA<small>INSTITUTE</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#about">About</a><a href="#programs">Programs</a><a href="#approach">Our approach</a><a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <button class="btn btn-ghost" data-login="admin" type="button">Admin login</button>
+        <button class="btn btn-dark" data-login="candidate" type="button">Candidate login <span>↗</span></button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy-wrap">
+          <div class="eyebrow">Solar education · Renewable skills</div>
+          <h1>Learn solar.<br><span>Shape tomorrow.</span></h1>
+          <p class="hero-copy">A brighter energy future starts with the right knowledge. Discover solar technology, understand renewable energy systems and build practical skills for a world moving towards clean power.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-green" href="#programs">Explore learning programs <span>↗</span></a>
+            <a class="btn btn-ghost" href="#about">Discover Jasfa <span>↓</span></a>
+          </div>
+          <div class="hero-proof">
+            <div class="proof-item"><strong>Learn</strong>Core concepts</div><div class="proof-separator"></div>
+            <div class="proof-item"><strong>Explore</strong>Solar technology</div><div class="proof-separator"></div>
+            <div class="proof-item"><strong>Grow</strong>Future-ready skills</div>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Illustration of a solar panel under sunlight">
+          <div class="art-orbit"></div><div class="sun-halo"></div><div class="sun-disc"></div>
+          <div class="solar-platform">
+            <i class="solar-cell"></i><i class="solar-cell"></i><i class="solar-cell"></i><i class="solar-cell"></i>
+            <i class="solar-cell"></i><i class="solar-cell"></i><i class="solar-cell"></i><i class="solar-cell"></i>
+            <i class="solar-cell"></i><i class="solar-cell"></i><i class="solar-cell"></i><i class="solar-cell"></i>
+            <div class="solar-glint"></div>
+          </div>
+          <div class="art-label label-left"><strong>☼ Solar energy</strong><span>POWERING POSSIBILITIES</span></div>
+          <div class="art-label label-right"><strong>Clean energy</strong><span>BUILT FOR TOMORROW</span></div>
+          <div class="art-caption">Knowledge · Technology · Sustainability</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="principles">
+      <div class="container principle-row">
+        <div class="principle"><span class="principle-icon">☼</span>Solar fundamentals</div>
+        <div class="principle"><span class="principle-icon">▦</span>Technology awareness</div>
+        <div class="principle"><span class="principle-icon">⌂</span>Real-world applications</div>
+        <div class="principle"><span class="principle-icon">♧</span>Sustainable thinking</div>
+      </div>
+    </div>
+
+    <section class="content-section" id="about">
+      <div class="container about-layout">
+        <div class="about-visual reveal">
+          <div class="about-sun"></div>
+          <div class="about-array"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="about-caption"><strong>☼ Learn with purpose</strong>Understand the energy of tomorrow</div>
+        </div>
+        <div class="about-copy reveal d1">
+          <div class="section-tag">About Jasfa Institute</div>
+          <h2>Turning curiosity into clean-energy knowledge.</h2>
+          <p>Solar energy is transforming homes, businesses and communities. Jasfa Institute aims to make this growing field easier to understand through clear learning, technology awareness and practical exploration.</p>
+          <p>Whether you are beginning your journey or exploring a future in renewable energy, our focus is to help you build a strong foundation and see how solar technology works in the real world.</p>
+          <div class="tick-grid">
+            <div class="tick"><b>✓</b>Clear learning pathways</div>
+            <div class="tick"><b>✓</b>Practical perspective</div>
+            <div class="tick"><b>✓</b>Beginner-friendly topics</div>
+            <div class="tick"><b>✓</b>Future-focused learning</div>
+          </div>
+          <a class="btn btn-dark" href="#contact">Connect with our team <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section program-section" id="programs">
+      <div class="container">
+        <div class="section-intro reveal">
+          <div class="section-tag">Explore the learning areas</div>
+          <h2>Get to know the power of the sun.</h2>
+          <p>Explore essential solar and renewable-energy topics, from the science behind photovoltaic systems to the applications shaping a more sustainable world.</p>
+        </div>
+        <div class="program-grid">
+          <article class="program-card reveal"><div class="program-icon">☼</div><h3>Solar Energy Fundamentals</h3><p>Understand sunlight, photovoltaic principles and how solar energy is converted into electricity.</p><div class="program-foot"><span>FOUNDATION</span><span>↗</span></div></article>
+          <article class="program-card reveal d1"><div class="program-icon">▦</div><h3>Solar PV Technology</h3><p>Explore panels, inverters, batteries and the key components used in solar power systems.</p><div class="program-foot"><span>TECHNOLOGY</span><span>↗</span></div></article>
+          <article class="program-card reveal d2"><div class="program-icon">⌁</div><h3>System Installation & Safety</h3><p>Learn about installation concepts, electrical safety, maintenance and responsible practices.</p><div class="program-foot"><span>APPLICATION</span><span>↗</span></div></article>
+          <article class="program-card reveal"><div class="program-icon">⌂</div><h3>Rooftop Solar Solutions</h3><p>Discover residential and commercial solar applications and how systems support energy needs.</p><div class="program-foot"><span>REAL-WORLD USE</span><span>↗</span></div></article>
+          <article class="program-card reveal d1"><div class="program-icon">♧</div><h3>Renewable Energy</h3><p>Explore the clean-energy ecosystem, sustainability principles and the transition to greener power.</p><div class="program-foot"><span>SUSTAINABILITY</span><span>↗</span></div></article>
+          <article class="program-card reveal d2"><div class="program-icon">↗</div><h3>Solar Industry & Careers</h3><p>Understand the evolving solar sector, relevant skills and potential career opportunities.</p><div class="program-foot"><span>CAREER AWARENESS</span><span>↗</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="approach">
+      <div class="container">
+        <div class="section-intro reveal">
+          <div class="section-tag">The Jasfa learning approach</div>
+          <h2>A simple path from learning to understanding.</h2>
+          <p>Build your knowledge progressively with a learning journey that connects important concepts to practical applications.</p>
+        </div>
+        <div class="journey-grid">
+          <article class="journey-card reveal"><div class="journey-number">01 / DISCOVER</div><h3>Build the foundation</h3><p>Start with solar energy basics, electricity concepts and renewable-energy terminology.</p></article>
+          <article class="journey-card reveal d1"><div class="journey-number">02 / EXPLORE</div><h3>Understand the systems</h3><p>Get familiar with solar panels, system components and how they work together.</p></article>
+          <article class="journey-card reveal d2"><div class="journey-number">03 / CONNECT</div><h3>See practical use</h3><p>Relate your knowledge to installations, safety and real-world energy applications.</p></article>
+          <article class="journey-card reveal d3"><div class="journey-number">04 / GROW</div><h3>Look towards the future</h3><p>Explore the skills and opportunities emerging across the clean-energy industry.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-wrap" id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div class="contact-text">
+            <div class="eyebrow">Start your learning journey</div>
+            <h2>Be part of the energy that moves the future.</h2>
+            <p>Have a question about Jasfa Institute or our learning programs? We would love to hear from you.</p>
+          </div>
+          <a class="btn btn-green" href="mailto:info@jasfaedutech.org?subject=Jasfa%20Institute%20Enquiry">Enquire with us <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-about">
+          <a class="brand" href="#home"><span class="brand-symbol">☼</span><span class="brand-name">JASFA<small>INSTITUTE</small></span></a>
+          <p>Building awareness and knowledge around solar energy, renewable technologies and the opportunities of a cleaner energy future.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column"><strong>Explore</strong><a href="#about">About Jasfa</a><a href="#programs">Learning areas</a><a href="#approach">Our approach</a></div>
+          <div class="footer-column"><strong>Portal access</strong><a href="#" data-login="candidate">Candidate login</a><a href="#" data-login="admin">Admin login</a><a href="mailto:info@jasfaedutech.org">Email us</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Jasfa Institute. All rights reserved.</span><span>Learn solar. Shape tomorrow. ☼</span></div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const menuBtn = document.getElementById('menuBtn');
+      const navLinks = document.getElementById('navLinks');
+      document.querySelectorAll('[data-login]').forEach(link => {
+        const destination = link.dataset.login === 'admin' ? 'candidate-login.html?admin=1' : 'candidate-login.html';
+        if (link.tagName === 'A') link.href = destination;
+        else link.addEventListener('click', () => location.assign(destination));
+      });
+      menuBtn.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('show');
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.textContent = open ? '?' : '?';
+      });
+      navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.textContent = '?';
+      }));
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); }
+      }), {threshold: .12});
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    })();
+  </script>
+</body>
+</html>
