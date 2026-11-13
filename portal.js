@@ -1,27 +1,38 @@
 (() => {
   'use strict';
-  const accountEmail = 'Kavi@gmail.com';
+  // This static preview uses browser-local accounts, not server authentication.
+  const accounts = [
+    {id:'kavi', email:'Kavi@gmail.com', password:'kavi@1234', name:'Kavi'},
+    {id:'mohan', email:'rajm01601@gmail.com', password:'mohan@123', name:'Mohan', photo:'assets/profiles/mohan.jpeg'},
+    {id:'kaviyarasu', email:'kaviyarasud03@gmail.com', password:'kavi@123', name:'Kavi', photo:'assets/profiles/kavi.jpeg'},
+    {id:'ashok', email:'ashokinfo55@gmail.com', password:'ashok@123', name:'Ashok'}
+  ];
   const sessionKey = 'jasfa.candidate';
-  const profileKey = 'jasfa.profile.kavi';
-  const readingKey = 'jasfa.reading.kavi';
   const page = document.body.dataset.page;
   const storage = {
     get(key) { try { return localStorage.getItem(key); } catch { return null; } },
     set(key, value) { localStorage.setItem(key, value); }
   };
-  const signedIn = storage.get(sessionKey) === accountEmail;
+  const sessionEmail = (storage.get(sessionKey) || '').toLowerCase();
+  const account = accounts.find(candidate => candidate.email.toLowerCase() === sessionEmail);
+  const signedIn = Boolean(account);
+  const accountEmail = account ? account.email : '';
+  const profileKey = account ? `jasfa.profile.${account.id}` : null;
+  const readingKey = account ? `jasfa.reading.${account.id}` : null;
   const icon = (name) => {
     const paths = {home:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',book:'<path d="M12 5v16M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Z"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',exit:'<path d="M9 4H4v16h5m6-12 4 4-4 4m-6-4h10"/>',file:'<path d="M14 2H5v20h14V7ZM14 2v6h5M8 12h8m-8 4h6"/>'};
     return `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">${paths[name] || paths.book}</svg>`;
   };
   const brand = `<a class="brand" href="index.html" aria-label="Jasfa Institute home"><span class="brand-icon" aria-hidden="true">☼</span><span>JASFA<small>INSTITUTE</small></span></a>`;
   const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  let profile = {name:'Kavi',phone:'',address:''};
+  const defaultName = account ? account.name : '';
+  let profile = {name:defaultName,phone:'',address:''};
   try { const saved = JSON.parse(storage.get(profileKey)); if (saved && typeof saved === 'object') for (const key of Object.keys(profile)) if (typeof saved[key] === 'string') profile[key] = saved[key]; } catch {}
   let savedPage = Math.min(204, Math.max(1, parseInt(storage.get(readingKey), 10) || 1));
-  const name = escapeHTML(profile.name || 'Kavi');
-  const firstName = escapeHTML((profile.name || 'Kavi').trim().split(/\s+/)[0]);
-  const initials = escapeHTML((profile.name || 'Kavi').trim().split(/\s+/).slice(0,2).map(n => n[0]).join('').toUpperCase());
+  const name = escapeHTML(profile.name || defaultName);
+  const firstName = escapeHTML((profile.name || defaultName).trim().split(/\s+/)[0]);
+  const initials = escapeHTML((profile.name || defaultName).trim().split(/\s+/).slice(0,2).map(n => n[0]).join('').toUpperCase());
+  const avatar = tag => `<${tag} class="avatar">${account && account.photo ? `<img class="avatar-photo" src="${escapeHTML(account.photo)}" alt="${name}" data-profile-photo>` : ''}<span data-initials ${account && account.photo ? 'hidden' : ''}>${initials}</span></${tag}>`;
   const title = 'PV Solar Panel Installation Technician';
   const footer = `<footer class="portal-footer"><span>© ${new Date().getFullYear()} Jasfa Institute</span><span>Learn solar. Shape tomorrow.</span></footer>`;
 
@@ -37,8 +48,9 @@
     form.addEventListener('input', () => document.getElementById('loginError').textContent = '');
     form.addEventListener('submit', event => {
       event.preventDefault();
-      if (form.email.value.trim().toLowerCase() !== accountEmail.toLowerCase() || form.password.value !== 'kavi@1234') { document.getElementById('loginError').textContent = 'Incorrect email or password. Please try again.'; return; }
-      try { storage.set(sessionKey, accountEmail); } catch { document.getElementById('loginError').textContent = 'Please enable browser storage to sign in to the portal.'; return; }
+      const candidate = accounts.find(item => item.email.toLowerCase() === form.email.value.trim().toLowerCase() && item.password === form.password.value);
+      if (!candidate) { document.getElementById('loginError').textContent = 'Incorrect email or password. Please try again.'; return; }
+      try { storage.set(sessionKey, candidate.email); } catch { document.getElementById('loginError').textContent = 'Please enable browser storage to sign in to the portal.'; return; }
       const next = new URLSearchParams(location.search).get('next');
       location.assign(['candidate-dashboard.html','candidate-learn.html','candidate-profile.html'].includes(next) ? next : 'candidate-dashboard.html');
     });
@@ -51,11 +63,15 @@
   let content = '';
   if (page === 'dashboard') content = `<div class="page-heading"><div><div class="eyebrow">Your learning workspace</div><h1>Welcome back, ${firstName}.</h1><p>A little progress today. A brighter future tomorrow.</p></div><a class="btn" href="candidate-profile.html">${icon('user')} View profile</a></div><section class="welcome" aria-labelledby="welcomeTitle"><div class="welcome-copy"><div class="eyebrow">Learn with purpose</div><h2 id="welcomeTitle">Your future in solar energy starts with knowledge.</h2><p>Pick up your handbook, explore the fundamentals, and keep moving forward at your own pace.</p><a class="btn btn-lime" href="candidate-learn.html">Go to my learning <span aria-hidden="true">↗</span></a></div><div class="solar-art" aria-hidden="true"><div class="sun"></div><div class="array"></div></div></section><div class="stats"><div class="stat"><span class="stat-icon">${icon('book')}</span><div><strong>01</strong><small>Learning resource</small></div></div><div class="stat"><span class="stat-icon">${icon('file')}</span><div><strong>204</strong><small>Handbook pages</small></div></div><div class="stat"><span class="stat-icon">${icon('book')}</span><div><strong>${storage.get(readingKey) ? savedPage : '—'}</strong><small>Saved reading page</small></div></div></div><div class="content-grid"><section><div class="section-heading"><h2>My learning</h2><a class="text-link" href="candidate-learn.html">View resource →</a></div>${courseCard}</section><aside><div class="section-heading"><h2>Your essentials</h2></div><article class="card resource-card"><div class="resource-icon">${icon('user')}</div><h3>Make this space yours</h3><p>Keep your contact details up to date in your candidate profile.</p><a class="text-link" href="candidate-profile.html">Manage profile →</a></article><article class="card resource-card"><h3>Need a hand?</h3><p>Our institute team can help with your account and learning resources.</p><a class="text-link" href="mailto:info@jasfaedutech.org">Get in touch ↗</a></article></aside></div>`;
   if (page === 'learn') content = `<div class="page-heading"><div><div class="eyebrow">Your resource library</div><h1>My learning</h1><p>Your handbook. Your pace. Keep building your knowledge.</p></div><span class="badge">Reading access</span></div><section class="card" aria-label="Participant handbook"><div class="reader-bar"><div><h2>${title}</h2><p>Participant handbook · 204 pages</p></div><form class="bookmark-controls" id="readingForm"><label for="readingPage">Reading page</label><input id="readingPage" type="number" min="1" max="204" step="1" value="${savedPage}" required><button class="btn" type="submit">Save & open</button></form></div><div class="pdf-stage" id="pdfStage" aria-busy="true"><div class="pdf-loading" id="pdfLoading"><span class="pdf-spinner" id="pdfSpinner" aria-hidden="true"></span><div role="status" aria-live="polite"><h3 id="pdfLoadingTitle">Loading your handbook</h3><p id="pdfLoadingMessage">Please wait while we open your learning resource.</p></div><div class="pdf-loading-actions" id="pdfLoadingActions" hidden><button class="btn btn-primary" id="retryHandbook" type="button">Try again</button><button class="btn" id="showHandbook" type="button">Show reader</button></div></div><iframe class="pdf-viewer" id="handbookViewer" title="PV Solar Panel Installation Technician participant handbook"></iframe></div></section><p class="status" id="readingStatus" role="status"></p><p class="reader-note">Enter a page above to save your place on this browser. For help accessing the handbook, contact the institute.</p>`;
-  if (page === 'profile') content = `<div class="page-heading"><div><div class="eyebrow">Your candidate account</div><h1>My profile</h1><p>Your details, all in one place.</p></div><span class="badge">Candidate</span></div><div class="profile-layout"><aside class="card profile-summary"><div class="avatar" data-initials>${initials}</div><h2 data-profile-name>${name}</h2><p class="muted">${accountEmail}</p><span class="badge">Candidate account</span><hr><div class="eyebrow">Learning program</div><p>${title}</p></aside><section class="card profile-form"><div class="form-header"><h2>Personal information</h2><p>Update your contact details below.</p></div><form id="profileForm"><div class="fields"><div class="field"><label for="fullName">Full name</label><input id="fullName" name="fullName" value="${escapeHTML(profile.name)}" required maxlength="80" autocomplete="name"></div><div class="field"><label for="profileEmail">Email address</label><input id="profileEmail" value="${accountEmail}" type="email" readonly autocomplete="email"><small>Contact the institute to change your sign-in email.</small></div><div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" value="${escapeHTML(profile.phone)}" placeholder="Add your phone number" maxlength="25" autocomplete="tel"></div><div class="field full"><label for="address">Address</label><textarea id="address" name="address" maxlength="500" placeholder="Add your address" autocomplete="street-address">${escapeHTML(profile.address)}</textarea></div></div><div class="form-actions"><span class="status" id="profileStatus" role="status">Profile changes are saved on this browser.</span><div><button class="btn" type="reset">Reset</button> <button class="btn btn-primary" type="submit">Save changes →</button></div></div></form></section></div>`;
-  document.getElementById('app').innerHTML = `${sidebar}<div class="workspace"><header class="topbar"><div class="breadcrumbs">Candidate portal <span>/ &nbsp; ${labels[page]}</span></div><a class="account" href="candidate-profile.html" aria-label="View your profile"><span class="avatar" data-initials>${initials}</span><span class="account-text"><strong data-profile-name>${name}</strong><small>Candidate</small></span></a></header><main class="main-content">${content}${footer}</main></div>`;
+  if (page === 'profile') content = `<div class="page-heading"><div><div class="eyebrow">Your candidate account</div><h1>My profile</h1><p>Your details, all in one place.</p></div><span class="badge">Candidate</span></div><div class="profile-layout"><aside class="card profile-summary">${avatar('div')}<h2 data-profile-name>${name}</h2><p class="muted">${accountEmail}</p><span class="badge">Candidate account</span><hr><div class="eyebrow">Learning program</div><p>${title}</p></aside><section class="card profile-form"><div class="form-header"><h2>Personal information</h2><p>Update your contact details below.</p></div><form id="profileForm"><div class="fields"><div class="field"><label for="fullName">Full name</label><input id="fullName" name="fullName" value="${escapeHTML(profile.name)}" required maxlength="80" autocomplete="name"></div><div class="field"><label for="profileEmail">Email address</label><input id="profileEmail" value="${accountEmail}" type="email" readonly autocomplete="email"><small>Contact the institute to change your sign-in email.</small></div><div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" value="${escapeHTML(profile.phone)}" placeholder="Add your phone number" maxlength="25" autocomplete="tel"></div><div class="field full"><label for="address">Address</label><textarea id="address" name="address" maxlength="500" placeholder="Add your address" autocomplete="street-address">${escapeHTML(profile.address)}</textarea></div></div><div class="form-actions"><span class="status" id="profileStatus" role="status">Profile changes are saved on this browser.</span><div><button class="btn" type="reset">Reset</button> <button class="btn btn-primary" type="submit">Save changes →</button></div></div></form></section></div>`;
+  document.getElementById('app').innerHTML = `${sidebar}<div class="workspace"><header class="topbar"><div class="breadcrumbs">Candidate portal <span>/ &nbsp; ${labels[page]}</span></div><a class="account" href="candidate-profile.html" aria-label="View your profile">${avatar('span')}<span class="account-text"><strong data-profile-name>${name}</strong><small>Candidate</small></span></a></header><main class="main-content">${content}${footer}</main></div>`;
+  document.querySelectorAll('[data-profile-photo]').forEach(photo => {
+    photo.addEventListener('error', () => { photo.hidden = true; photo.nextElementSibling.hidden = false; });
+    if (photo.complete && !photo.naturalWidth) { photo.hidden = true; photo.nextElementSibling.hidden = false; }
+  });
   document.getElementById('logout').addEventListener('click', () => { try { localStorage.removeItem(sessionKey); } catch {} location.replace('candidate-login.html'); });
   // Recheck authentication when the browser restores a page from its back/forward cache.
-  window.addEventListener('pageshow', () => { if (storage.get(sessionKey) !== accountEmail) location.replace('candidate-login.html'); });
+  window.addEventListener('pageshow', () => { if ((storage.get(sessionKey) || '').toLowerCase() !== accountEmail.toLowerCase()) location.replace('candidate-login.html'); });
   let openHandbook;
   if (page === 'learn') {
     const viewer = document.getElementById('handbookViewer');
@@ -137,6 +153,7 @@
     if (!updated.name) { form.fullName.setCustomValidity('Please enter your name.'); form.fullName.reportValidity(); form.fullName.addEventListener('input', () => form.fullName.setCustomValidity(''), {once:true}); return; }
     try { storage.set(profileKey, JSON.stringify(updated)); } catch { document.getElementById('profileStatus').textContent = 'Your changes could not be saved. Please enable browser storage.'; return; }
     document.querySelectorAll('[data-profile-name]').forEach(el => el.textContent = updated.name);
+    document.querySelectorAll('[data-profile-photo]').forEach(el => el.alt = updated.name);
     document.querySelectorAll('[data-initials]').forEach(el => el.textContent = updated.name.split(/\s+/).slice(0,2).map(n => n[0]).join('').toUpperCase());
     for (const [field, value] of [['fullName',updated.name],['phone',updated.phone],['address',updated.address]]) { form[field].value = value; form[field].defaultValue = value; }
     document.getElementById('profileStatus').textContent = 'Your profile has been saved on this browser.';

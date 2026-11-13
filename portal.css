@@ -16,3 +16,6 @@
 .pdf-loading-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 @keyframes pdf-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.pdf-spinner{animation:none;border-top-color:var(--forest)}}
+
+.avatar{overflow:hidden;flex-shrink:0}
+.avatar-photo{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
